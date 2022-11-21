@@ -31,26 +31,7 @@ int main()
     else    
         cout << "computer go first" << endl;
 
-    // string str = "-allied-power--";
-    // cout << "Before: " << str << endl;
-    // int num = 0; 
-    // while(num > -1)
-    // {
-    //     num = str.find('-');
-
-    //     str.erase(num,1);
-    //     if(num == str.size())
-    //     {
-    //        break;
-    //     }
-    // }
-    // cout << str << endl;
-    // string temp; 
-    // for(int a = 0; a < str.size(); ++a)
-    // {
-    //     temp += toupper(str[a]);
-    // }
-    // cout << "After: " << temp << endl;
+    
 
     cout << "END OF PROGRAM :)\n";
     return 0; 
