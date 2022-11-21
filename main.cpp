@@ -22,35 +22,35 @@ string removeWhiteSpace(string& str);
 
 int main()
 {	
-    // bool flag = false; 
+    bool flag = false; 
      
-    // whoGoesFirst(flag);
+    whoGoesFirst(flag);
 
-    // if(flag)
-    //     cout << "user go first" << endl;
-    // else    
-    //     cout << "computer go first" << endl;
+    if(flag)
+        cout << "user go first" << endl;
+    else    
+        cout << "computer go first" << endl;
 
-    string str = "allied-power--";
-    int num = 0; 
-    while(num > -1)
-    {
-        num = str.find('-');
+    // string str = "-allied-power--";
+    // cout << "Before: " << str << endl;
+    // int num = 0; 
+    // while(num > -1)
+    // {
+    //     num = str.find('-');
 
-        str.erase(num,1);
-        if(num == str.size())
-        {
-           cout << str << endl;
-           break;
-        }
-        cout << str << endl;
-    }
-
-    for(int a = 0; a < str.size(); ++a)
-    {
-        str += toupper(str.at(a));
-    }
-    cout << str << endl;
+    //     str.erase(num,1);
+    //     if(num == str.size())
+    //     {
+    //        break;
+    //     }
+    // }
+    // cout << str << endl;
+    // string temp; 
+    // for(int a = 0; a < str.size(); ++a)
+    // {
+    //     temp += toupper(str[a]);
+    // }
+    // cout << "After: " << temp << endl;
 
     cout << "END OF PROGRAM :)\n";
     return 0; 
@@ -116,12 +116,11 @@ void whoGoesFirst(bool& flag)
 /// @return a string that contains all capital letters
 string convertToUpper(string& str)
 {
-    string temp = str;
-    //remove(temp.at(0), temp.at(str.size() - 1), ' ');
+    string temp;
     //convert each char to uppercase
     for(int i = 0; i < str.size(); ++i)
     {
-        temp += toupper(temp[i]);
+        temp += toupper(str[i]);
     }
     return temp;
 }
@@ -132,14 +131,15 @@ string convertToUpper(string& str)
 string removeWhiteSpace(string& str)
 {
     string temp = str; 
-    int indexOfWhiteSpace = 0;
-    while(indexOfWhiteSpace > -1)
+    int indexOfWhiteSpace = temp.find(' ');
+    while(indexOfWhiteSpace != -1)
     {
-        indexOfWhiteSpace = temp.find(' ');
         temp.erase(indexOfWhiteSpace,1);
+        indexOfWhiteSpace = temp.find(' ');
         if(indexOfWhiteSpace == str.size())
         {
-            break; 
+            temp.erase(indexOfWhiteSpace,1);
+            return temp;
         }
     }
     return temp; 
