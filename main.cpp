@@ -12,10 +12,10 @@ using namespace std;
 
 int main()
 {	
-    Player me; 
-    me.whoGoesFirst(); 
+    Player user; 
+    user.whoGoesFirst(); 
 
-    cout << me.getFlag() << endl; 
+    cout << user.getFlag() << endl; 
 
     cout << "END OF PROGRAM :)\n";
     return 0; 
