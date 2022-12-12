@@ -10,105 +10,53 @@
 #define BOARD_H
 
 #include <iostream>
-#include <cctype>
-#include <cstring>
+// #include <cstring>
 
 const int SIZE = 11; // 10 x 10 board size
 
 class board
 {
     private:
-        char userBattleGround[SIZE][SIZE];
-        char userStratBoard[SIZE][SIZE];
+    // i had both boards as static char, but it was given undefined errors for board.cpp 
+        char shadowBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
+        char userBoard[SIZE][SIZE]; // user's placement 
+        // char (*ptrShadow)[SIZE] = shadowBoard; // shadow board array pointer
+        // char (*ptrUser)[SIZE] = userBoard; // user board array pointer
         int numB = 65;// print letters using ASCII numbers
         int numA = 0;// print integers into characters
-           
+
+        void fillDefaultBoard(char user[SIZE][SIZE], char shadow[SIZE][SIZE]); // we don't need a ptr bc it is only used once (hopefully)
+        bool setPiece(int column, char letter, char piece); // place piece on user board
 
     public:
-        board() {}; 
+        board() {
+            fillDefaultBoard(userBoard,shadowBoard);
+            std::cout << "Created Board\n";
+        }; 
         ~board() {}; 
-        void fillDefaultBoard();
-        void printBoard();
-        void placePiece(int column, char letter);// tester method
-};
-
-/// @brief use at the START of the game to fill all boards
-void board::fillDefaultBoard()
-{
-    for(int a = 0; a < SIZE; ++a)
-    {
-        if(a == 0)
-        {   
-            for(int b = 0; b < SIZE; ++b)
-            {
-                if(b == 0)
-                {
-                    userBattleGround[0][0] = '@';
-                    userStratBoard[0][0] = '@';
-                }
-                else
-                {
-                    // print integers as char
-                    char num = numA + '0';
-                    userBattleGround[0][b] = num;
-                    userStratBoard[0][b] = num; 
-                    numA++;
-                }
-                
-            }
-        }
-        else 
-        {
-            for(int c = 0; c < SIZE; ++c)
-            {
-                if(c == 0)
-                {
-                    userBattleGround[a][0] = char(numB); // typecasting
-                    userStratBoard[a][0] = char(numB); // typecasting
-                    numB++;
-                }
-                else
-                {
-                    userBattleGround[a][c] = '~';
-                    userStratBoard[a][c] = '~';
-                }
-                
-            }  
-        }
         
-    }
-}
+        void printBoard();
 
-/// @brief display the board and any time.
-void board::printBoard()
-{
-    std::cout << "Battle Ground\n";
-    for(int x = 0; x < SIZE; ++x)
-    {
-        for(int y = 0; y < SIZE; ++y)
+        // use this function in the game class to populate the board before starting turns
+        void fillBoard() // populate game board
         {
-            std::cout << userBattleGround[x][y] << " "; 
+            fillDefaultBoard(userBoard,shadowBoard);
         }
-        std::cout << std::endl;
-    }
-    std::cout << "\nYour Placements\n";
-    for(int x = 0; x < SIZE; ++x)
-    {
-        for(int y = 0; y < SIZE; ++y)
+
+        bool placePiece(int columnNum, int rowLetter, char piece)
         {
-            std::cout << userStratBoard[x][y] << " "; 
+            return setPiece(columnNum, rowLetter, piece);
         }
-        std::cout << std::endl;
-    }
-}
 
+        char (&getUserBoard())[SIZE][SIZE]
+        {
+            return userBoard;
+        }
 
-void board::placePiece(int column, char letter)
-{
-    char upperCaseLetter = toupper(letter); // in case someone inputs a lower case letter
-    int row = upperCaseLetter - 'A'; // convert the letter into an applicable row number
-    // must shift the numbers by 1 to account for the columns and rows that displays the coordinates
-    userBattleGround[row + 1][column + 1] = 'S';
-}
+        char (&getShadowBoard())[SIZE][SIZE]
+        {
+            return shadowBoard;
+        }
+};
 
 #endif
