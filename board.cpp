@@ -8,8 +8,8 @@
 
 #include "board.h"
 
-char board::opponentBoard[ROW][COLUMN];
-char board::userBoard[ROW][COLUMN]; 
+char board::opponentBoard[SIZE][SIZE];
+char board::userBoard[SIZE][SIZE];
 
 /// @brief populate the game board from a text file rather than multiple for loops
 void board::populateBoard()
@@ -41,18 +41,18 @@ void board::populateBoard()
 void board::displayBoard()
 {
     std::cout << "\n   Opponent's\n";
-    for(int x = 0; x < ROW; ++x)
+    for(int x = 0; x < SIZE; ++x)
     {   
-        for(int y = 0; y < COLUMN; ++y)
+        for(int y = 0; y < SIZE; ++y)
         {
             std::cout << opponentBoard[x][y] << " ";
         }
         std::cout << std::endl;
     } 
     std::cout << "\n   Your Placements\n";
-    for(int x = 0; x < ROW; ++x)
+    for(int x = 0; x < SIZE; ++x)
     {
-        for(int y = 0; y < COLUMN; ++y)
+        for(int y = 0; y < SIZE; ++y)
         {
             std::cout << userBoard[x][y] << " "; 
         }

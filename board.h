@@ -12,14 +12,13 @@
 #include <iostream>
 #include <fstream>
 
-#define ROW 9
-#define COLUMN 10
+#define SIZE 10
 
 class board
 {
     private: 
-        static char opponentBoard[ROW][COLUMN]; // user's selection board that tells whether he had sunk any ships
-        static char userBoard[ROW][COLUMN]; // user's placement
+        static char opponentBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
+        static char userBoard[SIZE][SIZE]; // user's placement
         // char (*ptrShadow)[SIZE] = opponentBoard; // opponent board array pointer
         // char (*ptrUser)[SIZE] = userBoard; // user board array pointers
         int asciiNum = 65;// print letters using ASCII numbers
