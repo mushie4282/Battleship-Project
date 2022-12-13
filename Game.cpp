@@ -6,73 +6,31 @@
  * @date 2022-12-09
  */
 
-#ifndef GAME_CPP
-#define GAME_CPP
+#include "Game.h"
 
-#include <iostream>
-#include "board.h"
-#include "ship.h"
-#include "player.h"
-#include "AircraftCarrier.h"
-
-
-class game 
-{
-    private: 
-        board* field;
-        Player user; 
-        bool winner = false; 
-        int rowLetter; 
-        char columnNum;
-
-        void coordinates(); 
-
-    public: 
-        game()
-        {
-           std::cout << "Start of BATTLESHIP Game! WELCOME!!\n";
-        };
-        ~game(){};
-
-        void gamePlay(); 
-
-};
-
-void game::coordinates()
-{
-    std::cout << "Enter row letter: ";
-    std::cin >> rowLetter; 
-    while(rowLetter > 'K')
-    {
-        std::cout << "Invalid row, try again: ";
-        std::cin >> rowLetter;
-    }
-    std::cout << "\n Enter column number: ";
-    std::cin >> columnNum; 
-    while(columnNum > 10)
-    {
-        std::cout << "Invalid colum, try again: ";
-        std::cin >> columnNum; 
-    }
-}
-
+/// @brief the main game loop, which calls other member functions to handle user input, computer turns, and game updates.
 void game::gamePlay()
 {
-    user.whoGoesFirst(); // quiz the user to see who goes first
+    srand(time(0)); // for psuedo random number generated within the player class
     
+    // quiz the user to see who goes first
+    user.whoGoesFirst();
+    
+
     // while there is NO winner
-    while(!winner)
+    while(!getWinnerFlag())
     {
         // consistently print the updated board
-
-        field->printBoard(); 
-
+        field->printBoard();
+        
         // check if the user is going first
         if(user.getFlag())
         {
             // start their turn
             std::cout << "Start their turn\n";
-            coordinates(); // grab coordinates
+            rowPos.setRowLetter();
+            colPos.setColumnNum();
+            std::cout << "Your Coordinates are: " << rowPos.getRowLetter() << " " << colPos.getColumnNum() << std::endl;
             winner = true; 
         }
         else
@@ -84,5 +42,3 @@ void game::gamePlay()
     }
 
 }
-
-#endif
