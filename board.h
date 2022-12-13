@@ -11,30 +11,30 @@
 
 #include <iostream>
 #include <fstream>
+#include "Dimension.h"
+#include "Position.h"
 
 #define SIZE 10
 
 class board
 {
-    private: 
+    private:
+        position Row; 
+        position Column;
         static char opponentBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
         static char userBoard[SIZE][SIZE]; // user's placement
-        // char (*ptrShadow)[SIZE] = opponentBoard; // opponent board array pointer
-        // char (*ptrUser)[SIZE] = userBoard; // user board array pointers
-        int asciiNum = 65;// print letters using ASCII numbers
-        int intChar = 0;// print integers into characters
-        
+   
     public:
-        board(){
-            std::cout << "Created Board\n";
-        }; 
+        board(){}; 
         ~board() {}; 
         
         void displayBoard();
 
         void populateBoard();
 
-        bool placePiece(int columnNum, int rowLetter, char piece); 
+        void setPiece(int columnNum, int rowLetter, int size); 
+
+        void attack(); 
 };
 
 #endif

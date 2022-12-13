@@ -40,7 +40,7 @@ void board::populateBoard()
 /// @brief display the board at any time.
 void board::displayBoard()
 {
-    std::cout << "\n   Opponent's\n";
+    std::cout << "\n     Opponent's\n";
     for(int x = 0; x < SIZE; ++x)
     {   
         for(int y = 0; y < SIZE; ++y)
@@ -61,22 +61,53 @@ void board::displayBoard()
 }
 
 
-bool board::placePiece(int columnNum, int rowLetter, char piece)
+void board::setPiece(int columnNum, int rowLetter, int size)
 {
-    char upperCaseLetter = toupper(rowLetter); // in case someone inputs a lower case letter
-    int row = upperCaseLetter - 'A'; // convert the letter into an applicable row number
+    // dimension shape; // option of vertical or horizontal placement
 
-    // check if the slot is taken
-    if(userBoard[row][columnNum] == '~')
-    {
-        userBoard[row][columnNum] = piece;
-        return true;
-    }
-    else
-    {
-        return false; 
+    for(int i = 0; i < size; ++i)
+    { 
+        // if the first choice is not available, ask again
+        // != '~' did not work -> use ascii num 126
+        while(userBoard[rowLetter][columnNum] != 126)
+        {
+            std::cout << "Ship could not be placed\n";
+            Row.setRowLetter(); 
+            Column.setColumnNum(); 
+            rowLetter = Row.getRowLetter();
+            columnNum = Column.getColumnNum(); 
+        }
+        
+        // when the space is empty place ship
+        userBoard[rowLetter][columnNum] = 'S';
+        // place right when the column num is too small
+        if(columnNum <= size)
+        {
+            ++columnNum;
+        }
+        // place left when the column num is too large
+        else
+        {
+            --columnNum;  
+        }
     }
 
-    // // must shift the numbers by 1 to account for the columns and rows that displays the coordinates
-    // *(*(board + row + 1) + column + 1) = piece; 
+    displayBoard();
+}
+
+/**
+ * @brief selecting where to attack
+ * 
+ * @param columnNum 
+ * @param rowLetter 
+ * @return true ship has sunk
+ * @return false ship is still a float
+ */
+void board::attack()
+{
+    std::cout << "Where do you want to attack?\n"; 
+    Row.setRowLetter(); 
+    Column.setColumnNum(); 
+
+    opponentBoard[Row.getRowLetter()][Column.getColumnNum()] = 'X';  
 }

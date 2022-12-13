@@ -9,25 +9,23 @@
 #ifndef BOAT_H
 #define BOAT_H
 
-#include <iostream> 
-#include "board.h"
-#include "Dimension.h"
-
-#define SIZE 10
+#include <iostream>
 
 class boat
 {
-    private: 
-        int spaces = 0; // ship size
-        dimension size;
+    private:
+        int shipSize; 
 
     public: 
         boat(int spaces) 
         {
             // set the amount of spaces the piece will take
-            size.setShipSize(spaces);
+            shipSize = spaces; 
         }; 
         ~boat(){ };
+
+        int getSpaces() const;
+        void changeShipSize(bool flag);  
 };
 
 #endif

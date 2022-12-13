@@ -8,35 +8,44 @@
 
 #include "Game.h"
 
+
 /// @brief the main game loop, which calls other member functions to handle user input, computer turns, and game updates.
 void game::gamePlay()
 {
     srand(time(0)); // for psuedo random number generated within the player class
 
-    // quiz the user to see who goes first
-    user.whoGoesFirst();
+    field.displayBoard(); // display battlefield for user reference
+
+    // place ships
+    ship.placePieces(); // a for loop that goes through all ships
 
     // while there is NO winner
-    while(!getWinnerFlag())
+    while(!winner.getGameFlag())
     {
         // consistently print the updated board
-        field->displayBoard();
-        
+        field.displayBoard();
+
         // check if the user is going first
-        if(user.getFlag())
+        if(player.whoGoesFirst())
         {
-            // start their turn
-            std::cout << "Start their turn\n";
-            rowPos.setRowLetter(); 
-            colPos.setColumnNum(); 
-            std::cout << "Your Coordinates are: " << rowPos.getRowLetter() << " " << colPos.getColumnNum() << std::endl;
-            winner = true; 
+            // start turn
+            std::cout << "You start the game\n";           
+            
+            // attack
+            // location.attack(); 
+            
+            // check if all 5 ships are still alive
+            // yes -> keep going
+            // no -> end game
+            
+
+            winner.setGameFlag(true);  
         }
         else
         {
             // show computer hitting their map
             std::cout << "Computer Starts\n";
-            winner = true;  
+            winner.setGameFlag(true);   
         }
     }
 

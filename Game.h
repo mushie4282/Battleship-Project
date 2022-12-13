@@ -1,6 +1,6 @@
 /**
  * @file Game.h
- * @author your name (you@domain.com)
+ * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
  * @brief Game class header file
  * @version 0.1
  * @date 2022-12-11
@@ -10,30 +10,34 @@
 #define GAME_H
 
 #include <iostream>
-#include "player.h"
-#include "board.h" 
-#include "AircraftCarrier.h"
-#include "Row.h"
-#include "Column.h"
-#include "Shape.h"
-#include "ship.h"
+#include "User.h"
+#include "board.h"
+#include "Placement.h"
+#include "Boat.h"
+#include "Position.h"
+#include "endGame.h"
 
 class game 
 {
     private:
-        Player user; // user object
-        // AircraftCarrier firstShip;
-        Row rowPos; // row position
-        Column colPos; // column position
-        board* field; 
-        bool winner = false; // flag to stop the game once someone wins
-
-        bool getWinnerFlag(){return winner;};
+        user player;
+        user opponent; // use a random number generator when it's the computer's turn
+        board field;
+        board location; 
+        endGame winner;
+        placement ship;
+        boat aircraftCarrier = boat(5);
+        boat battleShip = boat(4);
+        boat cruiser = boat(3); 
+        boat submarine = boat(3); 
+        boat destroyer = boat(2);
+        
+        int numOfShips = 5; 
 
     public: 
         game()
         {   
-            field -> populateBoard(); 
+            field.populateBoard(); 
             std::cout << "Start of BATTLESHIP Game! WELCOME!!\n";
         };
         ~game(){};

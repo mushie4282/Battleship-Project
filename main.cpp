@@ -11,9 +11,9 @@ using namespace std;
 
 int main()
 {	 
-    game test1; 
-    test1.gamePlay(); 
-    
+    game game1; 
+    game1.gamePlay(); 
+
     cout << "\nEnd of program :)\n";
     return 0; 
 }
