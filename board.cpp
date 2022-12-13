@@ -6,84 +6,53 @@
  * @date 2022-12-09
  */
 
-#include <iostream>
 #include "board.h"
 
-/// @brief use at the START of the game to fill all boards
-void board::fillDefaultBoard(char shadow[SIZE][SIZE], char board[SIZE][SIZE])
+char board::opponentBoard[ROW][COLUMN];
+char board::userBoard[ROW][COLUMN]; 
+
+/// @brief populate the game board from a text file rather than multiple for loops
+void board::populateBoard()
 {
-    for(int a = 0; a < SIZE; ++a)
-    {
-        if(a == 0)
-        {   
-            // column headings as numbers
-            for(int b = 0; b < SIZE; ++b)
-            {
-                if(b == 0)
-                {
-                    shadow[0][0] = '@';
-                    board[0][0] = '@';
-                    // *(*(shadow + 0) + 0) = '@';
-                    // *(*(board + 0) + 0) = '@';
-                    // *(*(ptr + a) + b)
-                }
-                else
-                {
-                    // print integers as char
-                    char num = numA + '0';
-                    shadow[0][b] = num;
-                    board[0][b] = num; 
-                    // *(*(shadow + 0) + b) = num;
-                    // *(*(board + 0) + b) = num;
-                    numA++;
-                }
-                
-            }
-        }
-        else 
+    int row = 0; 
+    int column = 0; 
+    char temp; 
+    std::ifstream input; 
+    input.open("gameField.txt");
+
+    while(!input.eof())
+    {  
+        input >> temp;
+        userBoard[row][column] = temp;
+        opponentBoard[row][column] = temp; 
+        if(column < 9)
         {
-            // tilda character as placement holders
-            for(int c = 0; c < SIZE; ++c)
-            {
-                // row header
-                if(c == 0)
-                {
-                    shadow[a][0] = char(numB); // typecasting
-                    board[a][0] = char(numB); // typecasting
-                    // *(*(shadow + a) + 0) = char(numB);
-                    // *(*(board + a) + 0) = char(numB);
-                    numB++;
-                }
-                else
-                {
-                    shadow[a][c] = '~';
-                    board[a][c] = '~';
-                    // *(*(shadow + a) + c) = '~';
-                    // *(*(board + a) + c) = '~';
-                }
-                
-            }  
+            column++;
         }
-        
+        else if(column == 9)
+        {
+            column = 0; 
+            row++; 
+        }
     }
 }
 
 /// @brief display the board at any time.
-void board::printBoard()
+void board::displayBoard()
 {
-    std::cout << "\n   Battle Ground\n";
-    for(int x = 0; x < SIZE; ++x)
-    {
-        for(int y = 0; y < SIZE; ++y)
+    std::cout << "\n   Opponent's\n";
+    for(int x = 0; x < ROW; ++x)
+    {   
+        for(int y = 0; y < COLUMN; ++y)
         {
-            std::cout << shadowBoard[x][y] << " ";
+            std::cout << opponentBoard[x][y] << " ";
         }
         std::cout << std::endl;
     } 
     std::cout << "\n   Your Placements\n";
-    for(int x = 0; x < SIZE; ++x)
+    for(int x = 0; x < ROW; ++x)
     {
-        for(int y = 0; y < SIZE; ++y)
+        for(int y = 0; y < COLUMN; ++y)
         {
             std::cout << userBoard[x][y] << " "; 
         }
@@ -92,15 +61,15 @@ void board::printBoard()
 }
 
 
-bool board::setPiece(int column, char letter, char piece)
+bool board::placePiece(int columnNum, int rowLetter, char piece)
 {
-    char upperCaseLetter = toupper(letter); // in case someone inputs a lower case letter
+    char upperCaseLetter = toupper(rowLetter); // in case someone inputs a lower case letter
     int row = upperCaseLetter - 'A'; // convert the letter into an applicable row number
 
     // check if the slot is taken
-    if(userBoard[row][column] == '~')
+    if(userBoard[row][columnNum] == '~')
     {
-        userBoard[row][column] = piece;
+        userBoard[row][columnNum] = piece;
         return true;
     }
     else
