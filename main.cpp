@@ -6,15 +6,15 @@
  * @date 2022-10-26 
  */
 #include <iostream>
-#include "Game.cpp"
-
+#include "Game.h"
 using namespace std;
 
 int main()
 {	 
+    game test1; 
+    test1.gamePlay(); 
     
-
-    cout << "\n End of program :)\n";
+    cout << "\nEnd of program :)\n";
     return 0; 
 }
 

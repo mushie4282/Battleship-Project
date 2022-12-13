@@ -12,24 +12,23 @@
 void game::gamePlay()
 {
     srand(time(0)); // for psuedo random number generated within the player class
-    
+
     // quiz the user to see who goes first
     user.whoGoesFirst();
-    
 
     // while there is NO winner
     while(!getWinnerFlag())
     {
         // consistently print the updated board
-        field->printBoard();
+        field->displayBoard();
         
         // check if the user is going first
         if(user.getFlag())
         {
             // start their turn
             std::cout << "Start their turn\n";
-            rowPos.setRowLetter();
-            colPos.setColumnNum();
+            rowPos.setRowLetter(); 
+            colPos.setColumnNum(); 
             std::cout << "Your Coordinates are: " << rowPos.getRowLetter() << " " << colPos.getColumnNum() << std::endl;
             winner = true; 
         }

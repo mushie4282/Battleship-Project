@@ -18,8 +18,6 @@
 #include "Shape.h"
 #include "ship.h"
 
-#define SIZE 11
-
 class game 
 {
     private:
@@ -28,9 +26,6 @@ class game
         Row rowPos; // row position
         Column colPos; // column position
         board* field; 
-        
-        char opponentBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
-        char** userBoard; // point to the board from a different class
         bool winner = false; // flag to stop the game once someone wins
 
         bool getWinnerFlag(){return winner;};
@@ -38,6 +33,7 @@ class game
     public: 
         game()
         {   
+            field -> populateBoard(); 
             std::cout << "Start of BATTLESHIP Game! WELCOME!!\n";
         };
         ~game(){};
