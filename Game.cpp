@@ -15,38 +15,36 @@ void game::gamePlay()
     srand(time(0)); // for psuedo random number generated within the player class
 
     field.displayBoard(); // display battlefield for user reference
+    
+    // quiz the user to see if he will attack first
+    player.whoGoesFirst();
+    
+    if(player.getUserFirst())
+    {
+        std::cout << "You attack first!\n";
+    }
+    else
+    {
+        std::cout << "Computer attacks first :(\n"; 
+    }
 
-    // place ships
-    ship.placePieces(); // a for loop that goes through all ships
+    // place 5 ships
+    ship.placePieces();
 
     // while there is NO winner
     while(!winner.getGameFlag())
     {
-        // consistently print the updated board
-        field.displayBoard();
+        // // consistently print the updated board
+        // field.displayBoard();          
+            
+        // attack
+        // location.attack(); 
+        
+        // check if all 5 ships are still alive
+        // yes -> keep going
+        // no -> end game
 
-        // check if the user is going first
-        if(player.whoGoesFirst())
-        {
-            // start turn
-            std::cout << "You start the game\n";           
-            
-            // attack
-            // location.attack(); 
-            
-            // check if all 5 ships are still alive
-            // yes -> keep going
-            // no -> end game
-            
-
-            winner.setGameFlag(true);  
-        }
-        else
-        {
-            // show computer hitting their map
-            std::cout << "Computer Starts\n";
-            winner.setGameFlag(true);   
-        }
+        winner.setGameFlag(true);  
     }
 
 }
