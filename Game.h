@@ -15,24 +15,15 @@
 #include "Placement.h"
 #include "Boat.h"
 #include "Position.h"
-#include "endGame.h"
+#include "Ability.h"
 
 class game 
 {
     private:
         user player;
-        user opponent; // use a random number generator when it's the computer's turn
         board field;
-        board location; 
-        endGame winner;
         placement ship;
-        boat aircraftCarrier = boat(5);
-        boat battleShip = boat(4);
-        boat cruiser = boat(3); 
-        boat submarine = boat(3); 
-        boat destroyer = boat(2);
-        
-        int numOfShips = 5; 
+        ability turn; 
 
     public: 
         game()

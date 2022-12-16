@@ -17,34 +17,53 @@ void game::gamePlay()
     field.displayBoard(); // display battlefield for user reference
     
     // quiz the user to see if he will attack first
-    player.whoGoesFirst();
+    // player.whoGoesFirst();
     
-    if(player.getUserFirst())
-    {
-        std::cout << "You attack first!\n";
-    }
-    else
-    {
-        std::cout << "Computer attacks first :(\n"; 
-    }
+    // if(player.getUserFirst())
+    // {
+    //     std::cout << "You attack first!\n";
+    // }
+    // else
+    // {
+    //     std::cout << "Computer attacks first :(\n"; 
+    // }
 
     // place 5 ships
     ship.placePieces();
 
-    // while there is NO winner
-    while(!winner.getGameFlag())
+    // main game loop
+    while(player.getBoatAmt() != 0) // should check if the CPU's boat amount is also not zero
     {
-        // // consistently print the updated board
-        // field.displayBoard();          
-            
-        // attack
-        // location.attack(); 
-        
-        // check if all 5 ships are still alive
-        // yes -> keep going
-        // no -> end game
+        std::cout << player.getBoatAmt() << std::endl;
+        // either user goes first or CPU goes first || player.getUserFirst()
+        if(1)
+        {
+            turn.attack(player);
+            // CPU attacks
+            if(turn.getSunkFlag()) // if there is a hit, track the amount of ships left
+            {
+                std::cout << "Hit!!\n";
+                // std::cout << player.getBoatAmt() << std::endl;
+            }
+            else
+            {
+                std::cout << "Miss\n";
+            }
+        }
+        else
+        {
+            // CPU attacks
+            turn.attack(player);
+            if(turn.getSunkFlag()) // if there is a hit, track the amount of ships left
+            {
+                std::cout << "Hit!!\n";
+            }
+            else
+            {
+                std::cout << "Miss\n";
+            }
+        }
 
-        winner.setGameFlag(true);  
+        field.displayBoard(); 
     }
-
 }
