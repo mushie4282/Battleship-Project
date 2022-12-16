@@ -1,7 +1,7 @@
 /**
  * @file Position.h
- * @author
- * @brief 
+ * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
+ * @brief collect row letter and column number from user
  * @version 0.1
  * @date 2022-12-12
  */

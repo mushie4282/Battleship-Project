@@ -1,7 +1,7 @@
 /**
  * @file User.h
  * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
- * @brief user input class
+ * @brief decide who goes first and holds the number of boats a user has
  * @version 0.1
  * @date 2022-11-21
  * 
@@ -14,14 +14,16 @@
 #include <fstream> // extract WW1 questions and answers
 #include <string>
 #include <vector> // holds all the qustions
-#include <cstdlib> // for random number generator
-#include <time.h> // for psuedo random number seed
+#include <cstdlib> // for rand() and srand()
+#include <ctime>   // for time()
 
 class user
 {
     private:
         std::vector<std::string> decideUser;// WW1 questions
         std::vector<std::string> checkUser; // WW1 answers
+        bool userFirst;
+        int boat; // number of ships that posses on the board
        
         // these functions are used within whoGoesFirst()
         std::string convertToUpper(std::string& str);
@@ -29,13 +31,15 @@ class user
 
     public: 
         user() {
-             
+            userFirst = false;
+            boat = 5; 
         }; 
-        ~user() {
+        ~user() {}; 
 
-        }; 
-
-        bool whoGoesFirst();
+        void whoGoesFirst();
+        bool getUserFirst();
+        void decrementBoatNum(bool flag);
+        int getBoatAmt();  
 
 };
 

@@ -1,7 +1,7 @@
 /**
  * @file user.h
  * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
- * @brief user input class implementation file
+ * @brief decide who goes first and holds the number of boats a user has
  * @version 0.1
  * @date 2022-11-21
  * 
@@ -42,15 +42,14 @@ std::string user::removeWhiteSpace(std::string& str)
     }
     return temp; 
 }
-/****************** These functions are for whoGoesFirst() *******************/
+/****************** End of functions for whoGoesFirst() *******************/
 
-
-/*
-* The first turn is determined by answering a randomized history question about WWI. 
-* If the player answers correctly, the player will be first to play. 
-* Otherwise, computer will make its first move.
-*/ 
-bool user::whoGoesFirst()
+/**
+ * @brief Quiz the user a WWI question to decide if the user will attack first
+ * 
+ * @return * void 
+ */
+void user::whoGoesFirst()
 {
     std::string userAnswer, userAnswerEditA, userAnswerEditB;
     std::string question, answer;
@@ -61,7 +60,8 @@ bool user::whoGoesFirst()
     // collect WWI questions and associated answer from external files
     if(!(in.is_open()) || !(input.is_open()))
     {
-        std::cout << "Could not one open file" << std::endl;
+        std::cout << "Could not one open file\n";
+        std::cout << "Program Ends\n";
         exit(0); 
     }
     else
@@ -74,34 +74,61 @@ bool user::whoGoesFirst()
     }
 
     // generate random number from 0 - 3
-    // srand(time(0));
+    srand(time(0));
     int num = rand() % (3 - 0 + 1);
 
     // display to console and get user's input
     std::cout << "Answer a World War I question to see who goes first.\n";
     std::cout << decideUser.at(num) << std::endl;
-    if(std::cin.good())
-    {
-      std::getline(std::cin,userAnswer);
-    }
-    else
-    {
-        std::cout << "Instream is not good. Try again.\n";
-        exit(0); 
-    }
+    std::getline(std::cin,userAnswer);
+    
     // remove white spaces in the answer;
     userAnswerEditA = removeWhiteSpace(userAnswer);
-    // conver any answer into all uppercase letters to compare with database answer
+    // conver answer into all uppercase letters to compare with database answer
     userAnswerEditB = convertToUpper(userAnswerEditA);
 
     // check if the user's answer matches the database answer
     if(checkUser.at(num) == userAnswerEditB)
     {
-        return true; 
+        userFirst = true; 
     }
     else
     {
-        return false; 
+        userFirst = false; 
     }
 
+}
+
+/**
+ * @brief decision flag of who start attcking in the main game loop
+ * 
+ * @return true user attacks first
+ * @return false CPU attacks first
+ */
+bool user::getUserFirst()
+{
+    return userFirst; 
+}
+
+/**
+ * @brief subtract the number of ships in possion when flag = 1
+ * 
+ * @param flag an entire ship has been sunk
+ */
+void user::decrementBoatNum(bool flag)
+{
+    if(flag)
+    {
+        --boat; 
+    }
+}
+
+/**
+ * @brief return the number of boat an object has
+ * 
+ * @return int number of boats in possession 
+ */
+int user::getBoatAmt()
+{
+    return boat; 
 }

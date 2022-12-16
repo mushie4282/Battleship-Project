@@ -1,15 +1,12 @@
 /**
  * @file Boat.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief class for all ships in the game
  * @version 0.1
  * @date 2022-12-13
  */
 
 #include "Boat.h"
-
-std::vector<int> boat::rowVec; 
-std::vector<int> boat::columnVec;
 
 /**
  * @brief get the number of spaces the boat occupies
@@ -39,47 +36,27 @@ void boat::decrementShipSize()
  */
 void boat::recordCoordinates(int row, int column)
 {
-    rowVec.push_back(row); 
-    columnVec.push_back(column); 
-}
-
-int boat::getRowVec(int index) const
-{
-    if(index > rowVec.size())
-    {
-        return -1; 
-    }
-    else
-    {
-        return rowVec[index]; 
-    }
-    
-}
-int boat::getColumnVec(int index) const
-{
-    if(index > columnVec.size())
-    {
-        return -1; 
-    }
-    else
-    {
-      return columnVec[index];   
-    }
-}
-
-void boat::removeCoordinates(int row, int column)
-{
-    rowVec.pop_back();
-    columnVec.pop_back(); 
+    squares.recordCoordinates(row, column);
 }
 
 /**
- * @brief get any vectors' size
- *  - any vector size would work because the two vectors are in parallel
+ * @brief value at index
  * 
- * @return int vector size
+ * @param index 
+ * @return int value of the vector index 
  */
-int boat::getVecSize()
+int boat::getRowVec(int index) const
 {
-    return rowVec.size(); 
+    return squares.getRowVec(index); 
+}
+
+/**
+ * @brief value at index
+ * 
+ * @param index 
+ * @return int value of the vector index 
+ */
+int boat::getColumnVec(int index) const
+{
+    return squares.getColumnVec(index); 
 }

@@ -10,8 +10,13 @@
 
 char board::userBoard[SIZE][SIZE];
 char board::opponentBoard[SIZE][SIZE];
+char board::shadowBoard[SIZE][SIZE];
 
-/// @brief populate the game board from a text file rather than multiple for loops
+/**
+ * @brief Populate game boards with an external txt file
+ *  - Computer will randomly set the 5 ships in place by the time the function ends
+ * 
+ */
 void board::populateBoard()
 {
     int row = 0; 
@@ -24,7 +29,8 @@ void board::populateBoard()
     {  
         input >> temp;
         userBoard[row][column] = temp;
-        opponentBoard[row][column] = temp; 
+        opponentBoard[row][column] = temp;
+        shadowBoard[row][column] = temp;  
         if(column < 9)
         {
             column++;
@@ -136,85 +142,4 @@ void board::setPiece(int columnNum, int rowLetter, int size, bool flag)
             }  
         }
     }
-}
-
-/**
- * @brief attack opponent's board
- *      - if there is a ship part -> 'X' will be placed
- *      - we will check the board if a ship space has been hit
- *      - if there is no ship part -> 'O' will be placed
- * 
- * @param rowLetter 
- * @param columnNum 
- */
-bool board::attack(int rowLetter, int columnNum, user name)
-{
-    // until we figure out how to hide the hidden board, use the user's board instead
-    if(userBoard[rowLetter][columnNum] == 'S')
-    {
-        opponentBoard[rowLetter][columnNum] = 'X';
-        countHits(rowLetter, columnNum, name);
-        return true;
-    }
-    else
-    {
-        opponentBoard[rowLetter][columnNum] = 'O';
-        return false; 
-    }
-}
-
-/**
- * @brief Use multiple for loops to check if the coordinates match any in the boats' vectors
- * 
- * @param rowLetter int
- * @param columnNum int
- * @param name user
- */
-void board::countHits(int rowLetter, int columnNum, user name)
-{
-    for(int i = 0; i < aircraftCarrier.getSpaces(); ++i)
-    {
-        if(rowLetter == aircraftCarrier.getRowVec(i) && columnNum == aircraftCarrier.getColumnVec(i))
-        {
-            aircraftCarrier.decrementShipSize();
-            name.decrementBoatNum(aircraftCarrier.getSpaces() == 0);
-            return;  
-        }  
-    }
-    for(int c = 0; c < battleShip.getSpaces(); ++c)
-    {
-        if(rowLetter == battleShip.getRowVec(c) && columnNum == battleShip.getColumnVec(c))
-        {
-            battleShip.decrementShipSize();
-            name.decrementBoatNum(battleShip.getSpaces() == 0);
-            return; 
-        }
-    }
-    for(int i = 0; i < submarine.getSpaces(); ++i)
-    {
-        if(rowLetter == submarine.getRowVec(i) && columnNum == submarine.getColumnVec(i))
-        {
-            submarine.decrementShipSize();
-            name.decrementBoatNum(submarine.getSpaces() == 0);
-            return; 
-        }  
-    }
-    for(int c = 0; c < cruiser.getSpaces(); ++c)
-    {
-        if(rowLetter == cruiser.getRowVec(c) && columnNum == cruiser.getColumnVec(c))
-        {
-            cruiser.decrementShipSize();
-            name.decrementBoatNum(cruiser.getSpaces() == 0);
-            return; 
-        }
-    }
-    for(int j = 0; j < destroyer.getSpaces(); ++j)
-    {
-        if(rowLetter == destroyer.getRowVec(j) && columnNum == destroyer.getColumnVec(j))
-        {
-            destroyer.decrementShipSize();
-            name.decrementBoatNum(destroyer.getSpaces() == 0);
-            return; 
-        }
-    }           
 }

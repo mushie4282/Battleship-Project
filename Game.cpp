@@ -17,33 +17,42 @@ void game::gamePlay()
     field.displayBoard(); // display battlefield for user reference
     
     // quiz the user to see if he will attack first
-    // player.whoGoesFirst();
+    player.whoGoesFirst();
     
-    // if(player.getUserFirst())
-    // {
-    //     std::cout << "You attack first!\n";
-    // }
-    // else
-    // {
-    //     std::cout << "Computer attacks first :(\n"; 
-    // }
+    if(player.getUserFirst())
+    {
+        std::cout << "You attack first!\n";
+    }
+    else
+    {
+        std::cout << "Computer attacks first :(\n"; 
+    }
+    
+    // computer places ships
+    ship.CPUplacement(); 
 
     // place 5 ships
     ship.placePieces();
 
     // main game loop
-    while(player.getBoatAmt() != 0) // should check if the CPU's boat amount is also not zero
+    // to win: 
+    // either player sinks all the boats or the user uses up all 81 turns
+    while(player.getBoatAmt() != 0 || opponent.getBoatAmt() != 0 || count > 0) // should check if the CPU's boat amount is also not zero
     {
-        std::cout << player.getBoatAmt() << std::endl;
         // either user goes first or CPU goes first || player.getUserFirst()
         if(1)
         {
-            turn.attack(player);
-            // CPU attacks
+            turn.attack(player); // user attacks
+            computer.CPUattack(); // CPU attacks
             if(turn.getSunkFlag()) // if there is a hit, track the amount of ships left
             {
+                ++userScore; 
+                // 5 boats take 17 squares on the board
+                if(userScore == 17)
+                {
+                    return; // end game b/c user has sunk all 5 boats
+                }
                 std::cout << "Hit!!\n";
-                // std::cout << player.getBoatAmt() << std::endl;
             }
             else
             {
@@ -52,10 +61,16 @@ void game::gamePlay()
         }
         else
         {
-            // CPU attacks
-            turn.attack(player);
-            if(turn.getSunkFlag()) // if there is a hit, track the amount of ships left
+            computer.CPUattack(); // CPU attacks
+            turn.attack(player); // user attacks
+            if(computer.getSunkFlag()) // if there is a hit, track the amount of ships left
             {
+                ++compScore;
+                // 5 boats take 17 squares on the board
+                if(compScore == 17)
+                {
+                    return; // end game b/c user has sunk all 5 boats
+                }
                 std::cout << "Hit!!\n";
             }
             else
@@ -64,6 +79,29 @@ void game::gamePlay()
             }
         }
 
-        field.displayBoard(); 
+        field.displayBoard();
+        // decrement amount of turns
+        --count; // decrement amount of turns left 
+        std::cout << "You have " << count << " attempts left\n";
     }
+    
+    // if the while loops ends with number of turns == 1
+    if(count == 1)
+    {
+        if(userScore > compScore)
+        {
+            std::cout << "You have won by the number of hits!\n";
+            std::cout << "Total Hits: " << userScore << std::endl;
+            std::cout << "Computer Total Hits: " << compScore << std::endl;
+        }
+        else
+        {
+            std::cout << "You have lost by the number of hits. :(\n";
+            std::cout << "Total Hits: " << userScore << std::endl;
+            std::cout << "Computer Total Hits: " << compScore << std::endl;
+        }
+    }
+    
+    // End Game message
+    std::cout << "Game Over\n";
 }

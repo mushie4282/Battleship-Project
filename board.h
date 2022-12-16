@@ -47,8 +47,6 @@ class board
         void populateBoard(); // only use once
 
         void setPiece(int columnNum, int rowLetter, int size, bool flag); // only use once
-
-        void CPUattack();  
 };
 
 #endif

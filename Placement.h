@@ -1,7 +1,7 @@
 /**
  * @file Placement.h
- * @author your name (you@domain.com)
- * @brief for the user to set up his battle field
+ * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
+ * @brief players will use the functions once to set their boards
  * @version 0.1
  * @date 2022-12-13 
  */
@@ -9,19 +9,23 @@
 #ifndef PLACEMENT_H
 #define PLACEMENT_H
 
-#include <iostream> 
+#include <iostream>
+#include <cstdlib>   // for rand() and srand()
+#include <ctime>     // for time()
 #include "Boat.h"
 #include "board.h"
 #include "Position.h"
+#include "Dimension.h"
 
 class placement
 {
     private:
         board field; 
         position Row; 
-        position Column; 
+        position Column;
+        dimension shape; 
         // array of boats
-        boat fleet[5] = {boat(5), boat(4), boat(3), boat(2), boat(2)};   
+        boat fleet[5] = {boat(5), boat(4), boat(3), boat(3), boat(2)};  
     
     public:
         placement()
@@ -30,7 +34,8 @@ class placement
         }; 
         ~placement(){}; 
 
-        void placePieces(); 
+        void placePieces();
+        void CPUplacement(); 
 };
 
 #endif

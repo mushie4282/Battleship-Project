@@ -1,7 +1,7 @@
 /**
  * @file Dimension.h
  * @author Michelle Tran, Stephanic Vaca, Kyle Kiyuna
- * @brief for size object (ship size) and shape object (horizontal/vertical)
+ * @brief place the ship vertical or horizontal 
  * @version 0.1
  * @date 2022-12-12
  */
