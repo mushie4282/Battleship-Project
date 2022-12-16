@@ -10,11 +10,15 @@
 #define BOAT_H
 
 #include <iostream>
+#include <vector> 
 
 class boat
 {
     private:
-        int shipSize; 
+        int shipSize; // number of spaces the boat occupies
+        // keep track of the coordinates the ship is on
+        static std::vector<int> rowVec; 
+        static std::vector<int> columnVec;
 
     public: 
         boat(int spaces) 
@@ -25,7 +29,14 @@ class boat
         ~boat(){ };
 
         int getSpaces() const;
-        void changeShipSize(bool flag);  
+        void decrementShipSize();
+        void recordCoordinates(int row, int column);
+        void removeCoordinates(int row, int column);
+        int getVecSize();
+        int getRowVec(int index) const; 
+        int getColumnVec(int index) const;   
 };
+
+
 
 #endif
