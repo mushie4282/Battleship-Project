@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>   // for rand() and srand()
+#include <ctime>     // for time()
 #include "Position.h"
 #include "Boat.h"
 #include "User.h"
@@ -22,19 +24,23 @@ class board
     private:
         position Row; 
         position Column;
+        // boat vectors to keep track of coordinates
         boat aircraftCarrier = boat(5);
         boat battleShip = boat(4);
         boat cruiser = boat(3); 
         boat submarine = boat(3);
         boat destroyer = boat(2);
-        int count = 0; 
-        // these static variables are initialized in the constructor of game.h
-        static char opponentBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
-        static char userBoard[SIZE][SIZE]; // user's placement
+        int count = 0; // for setPiece function to switch
    
     public:
         board(){}; 
         ~board() {}; 
+
+        // these static variables are initialized in the constructor of game.h
+        // they are public to easily share the boards among other classes
+        static char opponentBoard[SIZE][SIZE]; // user's selection board that tells whether he had sunk any ships
+        static char shadowBoard[SIZE][SIZE]; // computer's placement
+        static char userBoard[SIZE][SIZE]; // user's placement
         
         void displayBoard();
 
@@ -42,9 +48,7 @@ class board
 
         void setPiece(int columnNum, int rowLetter, int size, bool flag); // only use once
 
-        bool attack(int rowLetter, int columnNum, user name);
-
-        void countHits(int rowLetter, int columnNum, user name);  
+        void CPUattack();  
 };
 
 #endif
