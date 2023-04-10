@@ -6,17 +6,14 @@
  * @date 2022-10-26 
  */
 #include <iostream>
-#include "player.h" // user input
-
-using namespace std; 
+#include "Game.h"
+using namespace std;
 
 int main()
-{	
-    Player me; 
-    me.whoGoesFirst(); 
+{	 
+    game gameTest; 
+    gameTest.gamePlay(); 
 
-    cout << me.getFlag() << endl; 
-
-    cout << "END OF PROGRAM :)\n";
+    cout << "\nEnd of program :)\n";
     return 0; 
 }
